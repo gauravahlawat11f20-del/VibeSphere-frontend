@@ -28,19 +28,18 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
-          path="/home"
           element={
             <ProtectedRoute>
               <Layout />
             </ProtectedRoute>
           }
         >
-          <Route index element={<Home />} />
-          <Route path="profile/:username" element={<Profile />} />
-          <Route path="messages" element={<Messages />} />
-          <Route path="messages/:userId" element={<Messages />} />
-          <Route path="notifications" element={<Notifications />} />
-          <Route path="explore" element={<Explore />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/messages/:userId" element={<Messages />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/explore" element={<Explore />} />
         </Route>
       </Routes>
     </BrowserRouter>
