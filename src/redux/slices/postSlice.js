@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../../utils/axiosInstance";
 
 export const fetchFeed = createAsyncThunk("posts/feed", async (page = 1, { getState }) => {
   const token = getState().auth.accessToken;
-  const { data } = await axios.get(`/api/posts/feed?page=${page}`, {
+  const { data } = await api.get(`/posts/feed?page=${page}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return { posts: data, page };
