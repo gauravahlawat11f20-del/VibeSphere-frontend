@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { setOnlineUsers } from "../redux/slices/socketSlice";
 import { addNotification } from "../redux/slices/notifSlice";
+import { getSocketUrl } from "../utils/runtimeUrls";
 
 let socket = null;
 
@@ -12,13 +13,7 @@ export const useSocketSetup = () => {
 
   useEffect(() => {
     if (!user) return;
-    const apiBase = import.meta.env.VITE_API_BASE_URL || "/api";
-    const socketUrl =
-      import.meta.env.VITE_SOCKET_URL ||
-      apiBase.replace(/\/api\/?$/, "") ||
-      window.location.origin;
-
-    socket = io(socketUrl, {
+    socket = io(getSocketUrl(), {
       query: { userId: user._id },
       withCredentials: true,
       transports: ["websocket", "polling"],

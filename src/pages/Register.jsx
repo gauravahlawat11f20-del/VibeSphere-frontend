@@ -19,7 +19,7 @@ export default function Register() {
     const result = await dispatch(registerUser(form));
     if (registerUser.fulfilled.match(result)) {
       toast.success("Account created!");
-      navigate("/home");
+      navigate("/");
     } else {
       toast.error(result.payload || "Registration failed");
     }

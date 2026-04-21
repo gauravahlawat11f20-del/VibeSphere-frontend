@@ -1,8 +1,7 @@
 import axios from "axios";
+import { getApiBaseUrl, getRefreshUrl } from "./runtimeUrls";
 
-const baseURL =
-  import.meta.env.VITE_API_BASE_URL ||
-  "/api";
+const baseURL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL,
@@ -29,10 +28,7 @@ export const initApi = (store, { setTokens, logout }) => {
         original._retry = true;
         try {
           const refreshToken = store.getState().auth.refreshToken;
-          const { data } = await axios.post(
-            `${api.defaults.baseURL}/auth/refresh`,
-            { refreshToken }
-          );
+          const { data } = await axios.post(getRefreshUrl(), { refreshToken });
           store.dispatch(setTokens(data));
           original.headers.Authorization = `Bearer ${data.accessToken}`;
           return api(original);
